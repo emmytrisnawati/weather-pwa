@@ -1,0 +1,33 @@
+.root {
+  padding: 2rem;
+}
+
+.root > section {
+  display: flex;
+  gap: 2rem;
+  margin-top: 1.5rem;
+}
+
+.root > h1 {
+  text-align: center;
+}
+
+.color {
+  color: var(--text-color);
+  flex: 1;
+  height: 10rem;
+  padding: 2.5rem 1rem;
+  text-align: center;
+  width: 10rem;
+}
+
+.color > p {
+  font-size: 1.875rem;
+  font-weight: 600;
+}
+
+@media only screen and (max-width: 48em) {
+  .root {
+    padding: 1rem;
+  }
+}
