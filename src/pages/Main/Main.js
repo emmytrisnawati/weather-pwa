@@ -15,16 +15,54 @@ export default function Main() {
     return <p>Loading...</p>;
   }
 
+  const renderDescWeather = () => (
+    <div>
+      <p>Feels Like</p>
+      <span>29 C</span>
+    </div>
+  );
+  const renderDays = () => (
+    <div>
+      <p>Sun</p>
+      <span>Icon</span>
+      <p>26 C</p>
+    </div>
+  );
+
   return (
     <main className={styles.root}>
-      <h1>Color palette</h1>
-      <section>
-        {data.map((item, idx) => (
-          <div className={styles.color} key={idx} style={{ backgroundColor: item.hex_value || '#000' }}>
-            <p>{item.color_name}</p>
-            <small>{item.hex_value}</small>
+      <section className={styles.main} style={{ background: 'linear-gradient(#436FB6, #FFCE06' }}>
+        <button className={styles.buttonAdd}>Add Location</button>
+        <div className={styles.grid}>
+          <div className={styles.location}>
+            <span>Your location</span>
+            <h2>Jakarta</h2>
+            <p>Sunday, 12 December 2021</p>
           </div>
-        ))}
+          <div className={styles.weather}>
+            <h1>26 C</h1>
+            <span>icon Partly Cloudy</span>
+          </div>
+          <div className={styles.desc}>
+            {renderDescWeather()}
+            {renderDescWeather()}
+            {renderDescWeather()}
+            {renderDescWeather()}
+            {renderDescWeather()}
+            {renderDescWeather()}
+            {renderDescWeather()}
+            {renderDescWeather()}
+          </div>
+          <div className={styles.days}>
+            {renderDays()}
+            {renderDays()}
+            {renderDays()}
+            {renderDays()}
+            {renderDays()}
+            {renderDays()}
+            {renderDays()}
+          </div>
+        </div>
       </section>
     </main>
   );

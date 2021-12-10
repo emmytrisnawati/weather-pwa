@@ -1,33 +1,104 @@
-.root {
-  padding: 2rem;
-}
-
-.root > section {
-  display: flex;
-  gap: 2rem;
-  margin-top: 1.5rem;
-}
-
-.root > h1 {
-  text-align: center;
-}
-
-.color {
+.root .main {
+  /* height: 100vh; */
   color: var(--text-color);
-  flex: 1;
-  height: 10rem;
-  padding: 2.5rem 1rem;
-  text-align: center;
-  width: 10rem;
 }
 
-.color > p {
-  font-size: 1.875rem;
-  font-weight: 600;
+.root .buttonAdd {
+  background: #E3F4FE66;
+  color: #fff;
+  width: 11.625rem;
+  height: 3rem;
+  outline: none;
+  border: none;
+  margin: 4rem 3rem 4rem 3rem;
+  float: right;
+  cursor: pointer;
+  border-radius: 5px;
 }
 
-@media only screen and (max-width: 48em) {
-  .root {
-    padding: 1rem;
+.root .grid {
+  display: grid;
+  width: 100%;
+  grid-gap: 2rem;
+  grid-template-columns: 1fr 2fr;
+  padding: 4rem;
+}
+
+/* Location */
+.root .grid > div:first-child {
+  grid-column: 1 / span 2;
+}
+.root .grid .location span {
+  font-size: 1.125rem;
+}
+.root .grid .location h2 {
+  font-size: 3rem;
+  color: #383838;
+}
+.root .grid .location p {
+  font-size: 1.5rem;
+}
+
+/* Weather */
+.root .grid .weather h1 {
+  font-size: 3.5rem;
+  color: #383838;
+}
+.root .grid .weather span {
+  font-size: 1.5rem;
+}
+
+/* Days */
+.root .grid .days {
+  grid-column: 1 / span 2;
+  display: grid;
+  grid-gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  width: 90%;
+  margin: 3rem auto;
+}
+.root .grid .days > div {
+  background: #FFFAE033;
+  border-radius: 10px;
+  padding: 1rem;
+}
+.root .grid .days > div p:first-child {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+.root .grid .days > div p:last-child {
+  font-size: 1.5rem;
+  font-weight: normal;
+}
+
+
+.root .grid > div {
+}
+
+.root .grid .desc {
+  display: grid;
+  grid-gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  background: #FFFAE033;
+  padding: 1.5rem;
+  border-radius: 10px;
+}
+
+.root .grid .desc > div {
+  border-bottom: 1px solid #CACCCF;
+  padding: .5rem;
+  font-size: 1.125rem;
+}
+
+.root .grid .desc > div p {
+  font-weight: bold;
+}
+
+/* Mobile */
+@media screen and (max-width: 48em) {
+  .root .grid {
+    display: block;
   }
+  
 }
+

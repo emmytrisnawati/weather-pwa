@@ -33,5 +33,5 @@ export default function fetch(url, method, param1, param2) {
 }
 
 export const colors = () => (
-  fetch(`${BASE_URL}/color/random_color?size=3`, 'get')
+  fetch(`${BASE_URL}/color/random_color?size=2`, 'get')
 );
