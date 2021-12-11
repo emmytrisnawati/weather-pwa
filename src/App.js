@@ -12,9 +12,11 @@ const App = ({ history, store }) => {
     <Provider store={store}>
       <Router history={history}>
         <ErrorBoundary>
-          <Switch>
-            <Route component={pages.Main} exact path="/" />
-          </Switch>
+          <main>
+            <Switch>
+              <Route component={pages.Main} exact path="/" />
+            </Switch>
+          </main>
         </ErrorBoundary>
       </Router>
     </Provider>

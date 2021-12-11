@@ -33,7 +33,7 @@ export default {
     new HtmlWebpackPlugin({     // Create HTML file that includes references to bundled CSS and JS.
       template: 'src/index.ejs',
       templateParameters: {
-        title: 'Sharing Session',
+        title: 'Weather App',
         url: 'http://localhost:4000',
       },
       minify: {

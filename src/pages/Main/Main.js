@@ -5,7 +5,7 @@ import styles from './styles.scoped.css';
 
 export default function Main() {
   const dispatch = useDispatch();
-  const { data, isLoading } = useSelector(s => s.main);
+  const { isLoading } = useSelector(s => s.main);
 
   useEffect(() => {
     dispatch(fetchColor());
@@ -15,55 +15,54 @@ export default function Main() {
     return <p>Loading...</p>;
   }
 
-  const renderDescWeather = () => (
-    <div>
-      <p>Feels Like</p>
-      <span>29 C</span>
-    </div>
+  const renderDescWeather = (label, value) => (
+    <article>
+      <b>{label}</b>
+      <p>{value}</p>
+    </article>
   );
-  const renderDays = () => (
-    <div>
-      <p>Sun</p>
-      <span>Icon</span>
-      <p>26 C</p>
-    </div>
+
+  const renderDays = (label, value) => (
+    <article>
+      <b>{label}</b>
+      <img alt="icon" />
+      <p>{value}</p>
+    </article>
   );
 
   return (
-    <main className={styles.root}>
-      <section className={styles.main} style={{ background: 'linear-gradient(#436FB6, #FFCE06' }}>
-        <button className={styles.buttonAdd}>Add Location</button>
-        <div className={styles.grid}>
-          <div className={styles.location}>
-            <span>Your location</span>
-            <h2>Jakarta</h2>
-            <p>Sunday, 12 December 2021</p>
-          </div>
-          <div className={styles.weather}>
-            <h1>26 C</h1>
-            <span>icon Partly Cloudy</span>
-          </div>
-          <div className={styles.desc}>
-            {renderDescWeather()}
-            {renderDescWeather()}
-            {renderDescWeather()}
-            {renderDescWeather()}
-            {renderDescWeather()}
-            {renderDescWeather()}
-            {renderDescWeather()}
-            {renderDescWeather()}
-          </div>
-          <div className={styles.days}>
-            {renderDays()}
-            {renderDays()}
-            {renderDays()}
-            {renderDays()}
-            {renderDays()}
-            {renderDays()}
-            {renderDays()}
-          </div>
-        </div>
-      </section>
-    </main>
+    <section className={styles.root}>
+      <button aria-label="Add Location" />
+      <div className={styles.location}>
+        <span>Your location</span>
+        <h2>Jakarta</h2>
+        <p>Sunday, 12 December 2021</p>
+      </div>
+      <div className={styles.weather}>
+        <section>
+          <h1>26&#8451;</h1>
+          <span>icon Partly Cloudy</span>
+        </section>
+        <section>
+          {renderDescWeather('Feels Like', '29\u2103')}
+          {renderDescWeather('Wind', '6 km/h')}
+          {renderDescWeather('Visibility', '5 km')}
+          {renderDescWeather('Cloud Cover', '40%')}
+          {renderDescWeather('Humidity', '92%')}
+          {renderDescWeather('UV Index', '0 of 10')}
+          {renderDescWeather('Pressure', '1019 hPa')}
+          {renderDescWeather('Rain Amount', '4.28 mm')}
+        </section>
+      </div>
+      <div className={styles.daily}>
+        {renderDays('Sun', '29\u2103')}
+        {renderDays('Sun', '29\u2103')}
+        {renderDays('Sun', '29\u2103')}
+        {renderDays('Sun', '29\u2103')}
+        {renderDays('Sun', '29\u2103')}
+        {renderDays('Sun', '29\u2103')}
+        {renderDays('Sun', '29\u2103')}
+      </div>
+    </section>
   );
 }
