@@ -28,15 +28,15 @@ export default function Main() {
     return <p>Loading...</p>;
   }
 
-  const renderDescWeather = () => (
-    <div>
-      <p>Feels Like</p>
-      <span>29 C</span>
-    </div>
+  const renderDescWeather = (label, value) => (
+    <article>
+      <b>{label}</b>
+      <p>{value}</p>
+    </article>
   );
   const renderDays = (data) => (
     <div>
-      <p>{createDate(data.dt)}</p>
+      <b>{createDate(data.dt)}</b>
       <img
         alt="weather status icon"
         src={imgUrl(data.weather[0].icon)}
@@ -47,40 +47,40 @@ export default function Main() {
 
   const imgUrl = url => `http://openweathermap.org/img/w/${url}.png`;
   return (
-    <main className={styles.root}>
-      <section className={styles.main} style={{ background: 'linear-gradient(#436FB6, #FFCE06' }}>
-        <button className={styles.buttonAdd}>Add Location</button>
-        <div className={styles.grid}>
-          <div className={styles.location}>
-            <span>Your location</span>
-            <h2>{dataWeather.name}</h2>
-            <p>{createDate(dataWeather.dt, 'long')}</p>
-          </div>
-          <div className={styles.weather}>
+    <section className={styles.root}>
+      <button aria-label="Add Location" />
+      <div className={styles.grid}>
+        <div className={styles.location}>
+          <span>Your location</span>
+          <h2>{dataWeather.name}</h2>
+          <p>{createDate(dataWeather.dt, 'long')}</p>
+        </div>
+        <div className={styles.weather}>
+          <section>
             <h1>{dataWeatherDaily.current.temp} C</h1>
             <img
               alt="weather status icon"
               src={imgUrl(dataWeatherDaily.current.weather[0].icon)}
             />
             <span>{dataWeatherDaily.current.weather[0].description}</span>
-          </div>
-          <div className={styles.desc}>
-            {renderDescWeather()}
-            {renderDescWeather()}
-            {renderDescWeather()}
-            {renderDescWeather()}
-            {renderDescWeather()}
-            {renderDescWeather()}
-            {renderDescWeather()}
-            {renderDescWeather()}
-          </div>
-          <div className={styles.days}>
-            {dataWeatherDaily.daily.map(data => {
-              return renderDays(data);
-            })}
-          </div>
+          </section>
+          <section>
+            {renderDescWeather('Feels Like', `${dataWeather.main.feels_like}\u2103`)}
+            {renderDescWeather('Wind', `${dataWeather.wind.speed} km/h`)}
+            {renderDescWeather('Visibility', `${dataWeather.visibility} km`)}
+            {renderDescWeather('Cloud Cover', `${dataWeather.clouds.all}%`)}
+            {renderDescWeather('Humidity', `${dataWeather.main.humidity}%`)}
+            {renderDescWeather('UV Index', `${dataWeatherDaily.current.uvi} of 10`)}
+            {renderDescWeather('Pressure', `${dataWeather.main.pressure} hPa`)}
+            {renderDescWeather('Rain Amount', '4.28 mm')}
+          </section>
         </div>
-      </section>
-    </main>
+        <div className={styles.daily}>
+          {dataWeatherDaily.daily.map(data => {
+            return renderDays(data);
+          })}
+        </div>
+      </div>
+    </section>
   );
 }

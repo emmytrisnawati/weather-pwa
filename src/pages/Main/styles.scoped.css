@@ -1,104 +1,189 @@
-.root .main {
-  /* height: 100vh; */
+.root {
   color: var(--text-color);
-}
-
-.root .buttonAdd {
-  background: #E3F4FE66;
-  color: #fff;
-  width: 11.625rem;
-  height: 3rem;
-  outline: none;
-  border: none;
-  margin: 4rem 3rem 4rem 3rem;
-  float: right;
-  cursor: pointer;
-  border-radius: 5px;
-}
-
-.root .grid {
-  display: grid;
-  width: 100%;
-  grid-gap: 2rem;
-  grid-template-columns: 1fr 2fr;
   padding: 4rem;
+  --border: 0.125rem solid var(--light-color);
 }
 
-/* Location */
-.root .grid > div:first-child {
-  grid-column: 1 / span 2;
+.root > button {
+  all: unset;
+  background: #E3F4FE66;
+  border-radius: 0.625rem;
+  display: block;
+  color: #fff;
+  cursor: pointer;
+  margin-left: auto;
+  padding: 0.75rem;
+  text-align: center;
+  width: 11.625rem;
 }
-.root .grid .location span {
+
+.root > button::before {
+  content: "Add Location";
+}
+
+.location {
+  margin-top: 1.5rem;
+}
+
+.location > span {
   font-size: 1.125rem;
 }
-.root .grid .location h2 {
+
+.location > h2 {
   font-size: 3rem;
-  color: #383838;
+  margin-bottom: 0.75rem;
 }
-.root .grid .location p {
+
+.location > p {
   font-size: 1.5rem;
 }
 
-/* Weather */
-.root .grid .weather h1 {
-  font-size: 3.5rem;
-  color: #383838;
-}
-.root .grid .weather span {
-  font-size: 1.5rem;
+.weather {
+  display: flex;
+  gap: 2rem;
+  margin-top: 4.25rem;
 }
 
-/* Days */
-.root .grid .days {
-  grid-column: 1 / span 2;
-  display: grid;
-  grid-gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  width: 90%;
-  margin: 3rem auto;
+.weather > section:first-child {
+  flex: 0.7;
 }
-.root .grid .days > div {
+
+.weather > section:last-child {
   background: #FFFAE033;
-  border-radius: 10px;
-  padding: 1rem;
-}
-.root .grid .days > div p:first-child {
-  font-size: 1.5rem;
-  font-weight: bold;
-}
-.root .grid .days > div p:last-child {
-  font-size: 1.5rem;
-  font-weight: normal;
-}
-
-
-.root .grid > div {
-}
-
-.root .grid .desc {
+  border-radius: 0.625rem;
   display: grid;
-  grid-gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  background: #FFFAE033;
+  grid-template-columns: repeat(4, minmax(9.375rem, 1fr));
   padding: 1.5rem;
-  border-radius: 10px;
 }
 
-.root .grid .desc > div {
-  border-bottom: 1px solid #CACCCF;
-  padding: .5rem;
+.weather h1 {
+  font-size: 3.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.weather span {
+  font-size: 1.5rem;
+}
+
+.weather article {
   font-size: 1.125rem;
+  border-left: var(--border);
+  border-top: var(--border);
+  padding-left: 0.75rem;
+  padding-top: 0.75rem;
 }
 
-.root .grid .desc > div p {
-  font-weight: bold;
+.weather article:nth-child(-n+4) {
+  border-top: none;
+  padding-bottom: 0.75rem;
+  padding-top: 0;
 }
 
-/* Mobile */
-@media screen and (max-width: 48em) {
-  .root .grid {
-    display: block;
+.weather article:first-child,
+.weather article:nth-child(4n+1) {
+  border-left: none;
+  padding-left: 0;
+}
+
+.daily {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  margin-top: 5rem;
+  overflow-x: auto;
+}
+
+.daily > article {
+  background: #FFFAE033;
+  border-radius: 0.625rem;
+  font-size: 1.5rem;
+  min-width: 8.25rem;
+  padding: 0.75rem;
+  text-align: center;
+}
+
+.weather article > b,
+.daily b {
+  display: block;
+}
+
+.daily img {
+  margin: 0.5rem 0;
+}
+
+@media only screen and (max-width: 48em) {
+  .root {
+    padding: 1rem;
+  }
+
+  .root > button {
+    border-radius: 50%;
+    height: 1.5rem;
+    padding: 0;
+    width: 1.5rem;
+  }
+
+  .root > button::before {
+    content: "\002B";
+  }
+
+  .location {
+    margin-top: 1rem;
+  }
+
+  .location > h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0.375rem;
+  }
+
+  .location > span { font-size: 0.75rem; } 
+  .location > p { font-size: 0.875rem; }
+
+  .weather {
+    flex-direction: column;
+    margin-top: 1rem;
+  }
+
+  .weather > section:last-child {
+    grid-template-columns: 1fr;
+  }
+
+  .weather h1 { font-size: 2.25rem; }
+  .weather span {font-size: 0.875rem; }
+
+  .weather article {
+    align-items: baseline;
+    border: none;
+    border-bottom: var(--border);
+    display: flex;
+    font-size: 0.75rem;
+    gap: 0.5rem;
+    padding: 0;
+    padding: 0.5rem 0;
+  }
+
+  .weather article:nth-child(-n+4) {
+    padding-bottom: 0.5rem;
+    padding-top: 0.5rem;
+  }
+
+  .weather article:first-child {
+    padding-top: 0;
+  }
+
+  .weather article > * {
+    flex: 1;
+  }
+
+  .daily {
+    justify-content: flex-start;
+    margin-top: 1rem;
+    gap: 0.625rem;
   }
   
+  .daily > article {
+    font-size: 0.875rem;
+    min-width: 5.125rem;
+    padding: 0.5rem;
+  }
 }
-

@@ -44,18 +44,18 @@ export default {
       templateParameters: (() => {
         if (GLOBALS.MODE === 'production') {
           return {
-            title: 'Sharing Session',
+            title: 'Weather App',
             url: 'http://localhost:4000',
           };
         }
         if (GLOBALS.MODE === 'staging') {
           return {
-            title: '[Staging] Sharing Session',
+            title: '[Staging] Weather App',
             url: 'http://localhost:4000',
           };
         }
         return {
-          title: '[DEV] Sharing Session',
+          title: '[DEV] Weather App',
           url: 'http://localhost:4000',
         };
       })(),
