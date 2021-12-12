@@ -23,6 +23,7 @@ export function fetchWeather(city) {
       const data = await getWeather(city);
       dispatch(fetchedAction(data, key));
     } catch (err) {
+      dispatch(fetchedAction([], key));
       dispatch(loadingAction(false, key));
     }
   };
@@ -37,6 +38,7 @@ export function fetchWeatherDaily(city) {
       const data = await getWeatherDaily(city);
       dispatch(fetchedAction(data, key));
     } catch (err) {
+      dispatch(fetchedAction([], key));
       dispatch(loadingAction(false, key));
     }
   };

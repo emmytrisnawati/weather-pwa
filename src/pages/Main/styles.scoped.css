@@ -4,21 +4,40 @@
   --border: 0.125rem solid var(--light-color);
 }
 
-.root > button {
-  all: unset;
-  background: #E3F4FE66;
-  border-radius: 0.625rem;
-  display: block;
-  color: #fff;
-  cursor: pointer;
-  margin-left: auto;
-  padding: 0.75rem;
+.noData {
   text-align: center;
-  width: 11.625rem;
+  margin-top: 10rem;
+  color: var(--text-color);
+  font-size: 2rem;
+}
+.noData img {
+  width: 10rem;
+  margin-bottom: 2rem;
 }
 
-.root > button::before {
-  content: "Add Location";
+.root .search {
+  display: flex;
+  justify-content: flex-end;
+}
+.root .search input {
+  min-width: 20rem;
+  text-indent: 10px;
+  opacity: 0.5;
+  border: none;
+  padding: 0 10px 0 10px;
+}
+.root .search button {
+  background: #E3F4FE66;
+  display: block;
+  padding: 0.75rem;
+  color: #fff;
+  cursor: pointer;
+  text-align: center;
+  outline: none;
+  border: none;
+}
+.root .search button::before {
+  content: "Search";
 }
 
 .location {
@@ -127,6 +146,19 @@
     content: "\002B";
   }
 
+  .root .search input {
+    min-width: 0rem;
+    width: 50%;
+    text-indent: 10px;
+    height: 1.7rem;
+    border-radius: 5px;
+  }
+
+  .root .search button {
+    padding: 0.5rem;
+    display: none;
+  }
+
   .location {
     margin-top: 1rem;
   }
@@ -185,5 +217,9 @@
     font-size: 0.875rem;
     min-width: 5.125rem;
     padding: 0.5rem;
+  }
+
+  .noData {
+    font-size: 1rem;
   }
 }

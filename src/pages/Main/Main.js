@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import LoadingBars from '../../components/elements/Loadingbars';
 import { createDate, fetchWeather, fetchWeatherDaily } from './actions';
 import styles from './styles.scoped.css';
 
@@ -8,20 +9,24 @@ export default function Main() {
   const { dataWeather, dataWeatherDaily, isLoadingWeather, isLoadingWeatherDaily } = useSelector(s => s.main);
   const [lat, setLat] = useState('');
   const [long, setLong] = useState('');
+  const [cityName, setCityName] = useState('');
+  const [weatherCityName, setWeatherCityName] = useState(false);
 
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition(function (position) {
-      setLat(position.coords.latitude);
-      setLong(position.coords.longitude);
-    });
-    if (lat && long) {
-      dispatch(fetchWeatherDaily(`lat=${lat}&lon=${long}`));
-      dispatch(fetchWeather(`lat=${lat}&lon=${long}`));
+    if(!weatherCityName) {
+      navigator.geolocation.getCurrentPosition(function (position) {
+        setLat(position.coords.latitude);
+        setLong(position.coords.longitude);
+      });
+      if (lat && long) {
+        dispatch(fetchWeatherDaily(`lat=${lat}&lon=${long}`));
+        dispatch(fetchWeather(`lat=${lat}&lon=${long}`));
+      }
     }
-  }, [lat, long]);
+  }, [lat, long, weatherCityName]);
 
   if (isLoadingWeather || isLoadingWeatherDaily) {
-    return <p>Loading...</p>;
+    return <LoadingBars />;
   }
 
   const renderDescWeather = (label, value) => (
@@ -40,12 +45,32 @@ export default function Main() {
       <p>{data.temp.day}&#8451;</p>
     </article>
   );
+  const handleClickSearch = (e) => {
+    e.preventDefault();
+    setWeatherCityName(true);
+    setLat(dataWeather.coord.lat);
+    setLong(dataWeather.coord.lon);
+    dispatch(fetchWeatherDaily(`lat=${lat}&lon=${long}`));
+    dispatch(fetchWeather(`q=${cityName}`));
+  }
 
   const imgUrl = url => `https://openweathermap.org/img/w/${url}.png`;
 
+  if(!dataWeather.name) {
+    return (
+      <div className={styles.noData}>
+        <img src="../../assets/not-found.svg" alt="" />
+        <h4>City not found!</h4>
+      </div>
+    );
+  }
+
   return (
     <section className={styles.root}>
-      <button aria-label="Add Location" />
+      <form className={styles.search} onSubmit={handleClickSearch}>
+        <input name="city" onChange={(e) => setCityName(e.target.value)} placeholder='Search City...' type="search" value={cityName}/>
+        <button aria-label="search" type='submit' />
+      </form>
       <div className={styles.grid}>
         <div className={styles.location}>
           <span>Your location</span>
@@ -73,7 +98,7 @@ export default function Main() {
           </section>
         </div>
         <div className={styles.daily}>
-          {dataWeatherDaily.daily.map(data => renderDays(data))}
+          {dataWeatherDaily.daily.map((data, index) => <Fragment key={index}>{renderDays(data)}</Fragment>)}
         </div>
       </div>
     </section>
