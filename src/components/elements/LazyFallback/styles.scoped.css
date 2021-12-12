@@ -14,7 +14,7 @@
 
 .spinner {
   animation: spin 1s ease-in-out infinite;
-  border: 0.1rem solid var(--primary-color);
+  border: 0.1rem solid var(--primary-light-color);
   border-radius: 50%;
   border-top-color: transparent;
   display: inline-block;
