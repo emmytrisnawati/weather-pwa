@@ -6,6 +6,7 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 import CompressionPlugin from 'compression-webpack-plugin';
 import MomentLocalesPlugin from 'moment-locales-webpack-plugin';
+import WorkboxWebpackPlugin from 'workbox-webpack-plugin';
 import path from 'path';
 import * as loaders from './tools/loaders';
 
@@ -82,6 +83,7 @@ export default {
     new CopyWebpackPlugin({
       patterns: [
         { from: 'src/assets', to: 'assets' },
+        { from: 'src/manifest.json', to: 'manifest.json' }
       ],
     }),
 
@@ -92,6 +94,11 @@ export default {
     new CompressionPlugin({
       test: /\.js$|\.css$|\.html$/,
       minRatio: 1
+    }),
+
+    new WorkboxWebpackPlugin.InjectManifest({
+      swSrc: './src/srcSw.js',
+      swDest: 'sw.js',
     }),
   ],
   module: {

@@ -35,14 +35,14 @@ export default function Main() {
     </article>
   );
   const renderDays = (data) => (
-    <div>
+    <article>
       <b>{createDate(data.dt)}</b>
       <img
         alt="weather status icon"
         src={imgUrl(data.weather[0].icon)}
       />
       <p>{data.temp.day} C</p>
-    </div>
+    </article>
   );
 
   const imgUrl = url => `http://openweathermap.org/img/w/${url}.png`;

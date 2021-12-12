@@ -6,6 +6,7 @@ import '@fontsource/poppins/700.css';
 import { render } from 'react-dom';
 import configureStore, { history } from './store/configureStore';
 import App from './App';
+import registerServiceWorker from './serviceWorkerRegistration';
 import './App.css';
 import './favicon.ico';
 const store = configureStore();
@@ -14,6 +15,8 @@ render(
   <App history={history} store={store} />,
   document.getElementById('app')
 );
+
+registerServiceWorker();
 
 moduleHotAccept(module);
 
