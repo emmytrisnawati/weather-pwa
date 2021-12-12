@@ -31,7 +31,7 @@ export default function Main() {
   const renderDescWeather = (label, value) => (
     <article>
       <b>{label}</b>
-      <p>{value}</p>
+      <p>{value.includes('-') ? '-' : value}</p>
     </article>
   );
   const renderDays = (data) => (
@@ -59,7 +59,7 @@ export default function Main() {
           <section>
             <h1>{dataWeatherDaily.current.temp} C</h1>
             <img
-              alt="weather status icon"
+              alt={dataWeatherDaily.current.weather[0].description}
               src={imgUrl(dataWeatherDaily.current.weather[0].icon)}
             />
             <span>{dataWeatherDaily.current.weather[0].description}</span>
@@ -71,8 +71,8 @@ export default function Main() {
             {renderDescWeather('Cloud Cover', `${dataWeather.clouds.all}%`)}
             {renderDescWeather('Humidity', `${dataWeather.main.humidity}%`)}
             {renderDescWeather('UV Index', `${dataWeatherDaily.current.uvi} of 10`)}
-            {renderDescWeather('Pressure', `${dataWeather.main.pressure} hPa`)}
-            {renderDescWeather('Rain Amount', '4.28 mm')}
+            {renderDescWeather('Pressure', `${dataWeather.main.pressue || '-'} hPa`)}
+            {renderDescWeather('Rain Amount', `${dataWeatherDaily.current.rain['1h']} mm`)}
           </section>
         </div>
         <div className={styles.daily}>
