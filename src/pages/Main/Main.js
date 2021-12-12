@@ -10,19 +10,15 @@ export default function Main() {
   const [long, setLong] = useState('');
 
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition(function(position) {
+    navigator.geolocation.getCurrentPosition(function (position) {
       setLat(position.coords.latitude);
       setLong(position.coords.longitude);
     });
-    if(lat && long) {
+    if (lat && long) {
       dispatch(fetchWeatherDaily(`lat=${lat}&lon=${long}`));
       dispatch(fetchWeather(`lat=${lat}&lon=${long}`));
     }
   }, [lat, long]);
-
-  useEffect(() => {
-    // dispatch(fetchWeatherCity(`lat=${lat}&lon=${long}`));
-  }, []);
 
   if (isLoadingWeather || isLoadingWeatherDaily) {
     return <p>Loading...</p>;
@@ -31,7 +27,7 @@ export default function Main() {
   const renderDescWeather = (label, value) => (
     <article>
       <b>{label}</b>
-      <p>{value.includes('-') ? '-' : value}</p>
+      <p>{value.includes('undefined' || '') ? '-' : value}</p>
     </article>
   );
   const renderDays = (data) => (
@@ -41,11 +37,12 @@ export default function Main() {
         alt="weather status icon"
         src={imgUrl(data.weather[0].icon)}
       />
-      <p>{data.temp.day} C</p>
+      <p>{data.temp.day}&#8451;</p>
     </article>
   );
 
   const imgUrl = url => `http://openweathermap.org/img/w/${url}.png`;
+
   return (
     <section className={styles.root}>
       <button aria-label="Add Location" />
@@ -57,7 +54,7 @@ export default function Main() {
         </div>
         <div className={styles.weather}>
           <section>
-            <h1>{dataWeatherDaily.current.temp} C</h1>
+            <h1>{dataWeatherDaily.current.temp}&#8451;</h1>
             <img
               alt={dataWeatherDaily.current.weather[0].description}
               src={imgUrl(dataWeatherDaily.current.weather[0].icon)}
@@ -71,14 +68,12 @@ export default function Main() {
             {renderDescWeather('Cloud Cover', `${dataWeather.clouds.all}%`)}
             {renderDescWeather('Humidity', `${dataWeather.main.humidity}%`)}
             {renderDescWeather('UV Index', `${dataWeatherDaily.current.uvi} of 10`)}
-            {renderDescWeather('Pressure', `${dataWeather.main.pressue || '-'} hPa`)}
-            {renderDescWeather('Rain Amount', `${dataWeatherDaily.current.rain['1h']} mm`)}
+            {renderDescWeather('Pressure', `${dataWeather.main.pressure} hPa`)}
+            {renderDescWeather('Rain Amount', `${dataWeatherDaily.current.rain?.['1h']} mm`)}
           </section>
         </div>
         <div className={styles.daily}>
-          {dataWeatherDaily.daily.map(data => {
-            return renderDays(data);
-          })}
+          {dataWeatherDaily.daily.map(data => renderDays(data))}
         </div>
       </div>
     </section>
