@@ -42,24 +42,10 @@ export default {
     // Generate HTML file that contains references to generated bundles. See here for how this works: https://github.com/ampedandwired/html-webpack-plugin#basic-usage
     new HtmlWebpackPlugin({
       template: 'src/index.ejs',
-      templateParameters: (() => {
-        if (GLOBALS.MODE === 'production') {
-          return {
-            title: 'Weather App',
-            url: 'http://localhost:4000',
-          };
-        }
-        if (GLOBALS.MODE === 'staging') {
-          return {
-            title: '[Staging] Weather App',
-            url: 'http://localhost:4000',
-          };
-        }
-        return {
-          title: '[DEV] Weather App',
-          url: 'http://localhost:4000',
-        };
-      })(),
+      templateParameters: {
+        title: 'Weather App',
+        url: 'https://sun-weather-pwa.netlify.app/',
+      },
       favicon: 'src/favicon.ico',
       minify: {
         removeComments: true,

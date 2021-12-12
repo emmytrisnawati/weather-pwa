@@ -63,8 +63,8 @@ export default function Main() {
           </section>
           <section>
             {renderDescWeather('Feels Like', `${dataWeather.main.feels_like}\u2103`)}
-            {renderDescWeather('Wind', `${dataWeather.wind.speed} km/h`)}
-            {renderDescWeather('Visibility', `${dataWeather.visibility} km`)}
+            {renderDescWeather('Wind', `${(dataWeather.wind.speed / 3.6).toFixed(2)} km/h`)}
+            {renderDescWeather('Visibility', `${dataWeather.visibility / 1000} km`)}
             {renderDescWeather('Cloud Cover', `${dataWeather.clouds.all}%`)}
             {renderDescWeather('Humidity', `${dataWeather.main.humidity}%`)}
             {renderDescWeather('UV Index', `${dataWeatherDaily.current.uvi} of 10`)}
