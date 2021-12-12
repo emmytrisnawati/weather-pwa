@@ -41,7 +41,7 @@ export default function Main() {
     </article>
   );
 
-  const imgUrl = url => `http://openweathermap.org/img/w/${url}.png`;
+  const imgUrl = url => `https://openweathermap.org/img/w/${url}.png`;
 
   return (
     <section className={styles.root}>

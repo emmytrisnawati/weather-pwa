@@ -22,7 +22,7 @@ registerRoute(
 );
 
 registerRoute(
-  ({ url }) => url.origin === 'http://openweathermap.org' && url.pathname.startsWith('/img/w'),
+  ({ url }) => url.origin === 'https://openweathermap.org' && url.pathname.startsWith('/img/w'),
   new StaleWhileRevalidate({
     cacheName: 'weather-icons',
     plugins: [
