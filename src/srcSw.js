@@ -36,9 +36,22 @@ registerRoute(
 
 const bgSyncPlugin = new BackgroundSyncPlugin('forecastingSync', {
   maxRetentionTime: 24 * 60,
-  callbacks: {
-    queueDidReplay: console.log('background sync')
-  }
+  onSync: async ({ queue }) => {
+    let entry;
+    while ((entry = await queue.shiftRequest())) {
+      try {
+        await fetch(entry.request);
+        self.registration.showNotification('Weather Forecasting', {
+          body: 'You are back online and your weather forecasting is available',
+          icon: 'assets/icon-72.png',
+        });
+        console.log('back online');
+      } catch (error) {
+        await this.unshiftRequest(entry);
+        throw error;
+      }
+    }
+  },
 });
 
 registerRoute(
