@@ -52,28 +52,32 @@ export default function Main() {
     setLong(dataWeather.coord.lon);
     dispatch(fetchWeatherDaily(`lat=${lat}&lon=${long}`));
     dispatch(fetchWeather(`q=${cityName}`));
-  }
+  };
 
   const imgUrl = url => `https://openweathermap.org/img/w/${url}.png`;
 
   if(!dataWeather.name) {
     return (
       <div className={styles.noData}>
-        <img src="../../assets/not-found.svg" alt="" />
+        <img  alt="city not found" src="../../assets/not-found.svg" />
         <h4>City not found!</h4>
       </div>
     );
   }
+  const handleButtonBack = () => {
+    setWeatherCityName(false);
+    setCityName('');
+  };
 
   return (
     <section className={styles.root}>
       <form className={styles.search} onSubmit={handleClickSearch}>
-        <input name="city" onChange={(e) => setCityName(e.target.value)} placeholder='Search City...' type="search" value={cityName}/>
-        <button aria-label="search" type='submit' />
+        <input name='city' onChange={(e) => setCityName(e.target.value)} placeholder='Search City...' type="search" value={cityName}/>
+        <button aria-label='search' type='submit' />
       </form>
       <div className={styles.grid}>
         <div className={styles.location}>
-          <span>Your location</span>
+          {weatherCityName ? <button onClick={handleButtonBack}>Back to your location</button> : <span>Your location</span>}
           <h2>{dataWeather.name}</h2>
           <p>{createDate(dataWeather.dt, 'long')}</p>
         </div>
