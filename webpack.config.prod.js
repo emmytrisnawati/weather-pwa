@@ -3,6 +3,7 @@
 import webpack from 'webpack';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+import HtmlWebpackPreconnectPlugin from 'html-webpack-preconnect-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 import CompressionPlugin from 'compression-webpack-plugin';
 import MomentLocalesPlugin from 'moment-locales-webpack-plugin';
@@ -62,7 +63,11 @@ export default {
       inject: true,
       // Note that you can add custom options here if you need to handle other custom logic in index.html
       // To track JavaScript errors via TrackJS, sign up for a free trial at TrackJS.com and enter your token below.
-      trackJSToken: ''
+      trackJSToken: '',
+      preconnect: [
+        'https://api.openweathermap.org',
+        'https://openweathermap.org',
+      ]
     }),
 
     // Copy assets directory
@@ -81,6 +86,8 @@ export default {
       test: /\.js$|\.css$|\.html$/,
       minRatio: 1
     }),
+
+    new HtmlWebpackPreconnectPlugin(),
 
     new WorkboxWebpackPlugin.InjectManifest({
       swSrc: './src/srcSw.js',

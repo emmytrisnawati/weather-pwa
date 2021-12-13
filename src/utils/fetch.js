@@ -1,14 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = (mode => {
-  if (mode === 'production') {
-    return `https://api.openweathermap.org/data/2.5`;
-  }
-  if (mode === 'staging') {
-    return `https://api.openweathermap.org/data/2.5`;
-  }
-  return `https://api.openweathermap.org/data/2.5`;
-})(process.env.MODE);
+const BASE_URL = `https://api.openweathermap.org/data/2.5`;
 
 export default function fetch(url, method, param1, param2) {
   return new Promise((resolve, reject) => {
