@@ -39,11 +39,6 @@ export function fetchWeatherDaily(city) {
       dispatch(fetchedAction(data, key));
     } catch (err) {
       dispatch(fetchedAction({}, key));
-      if ('serviceWorker' in navigator && 'SyncManager' in window) {
-        navigator.serviceWorker.ready(serviceWorkerRegistration => {
-          serviceWorkerRegistration.sync.register('forecastingSync');
-        });
-      }
     }
   };
 }
