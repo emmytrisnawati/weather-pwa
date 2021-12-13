@@ -1,8 +1,8 @@
 import { DATA_FETCHED, LOADING } from './constants';
 
 const initialState = {
-  dataWeather: [],
-  dataWeatherDaily: [],
+  dataWeather: {},
+  dataWeatherDaily: {},
   isLoadingWeather: true,
   isLoadingWeatherDaily: true,
 };

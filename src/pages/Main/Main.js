@@ -13,7 +13,7 @@ export default function Main() {
   const [weatherCityName, setWeatherCityName] = useState(false);
 
   useEffect(() => {
-    if(!weatherCityName) {
+    if (!weatherCityName) {
       navigator.geolocation.getCurrentPosition(function (position) {
         setLat(position.coords.latitude);
         setLong(position.coords.longitude);
@@ -56,10 +56,10 @@ export default function Main() {
 
   const imgUrl = url => `https://openweathermap.org/img/w/${url}.png`;
 
-  if(!dataWeather.name) {
+  if (!dataWeather.name) {
     return (
       <div className={styles.noData}>
-        <img  alt="city not found" src="../../assets/not-found.svg" />
+        <img alt="city not found" src="../../assets/not-found.svg" />
         <h4>City not found!</h4>
       </div>
     );
@@ -72,8 +72,8 @@ export default function Main() {
   return (
     <section className={styles.root}>
       <form className={styles.search} onSubmit={handleClickSearch}>
-        <input name='city' onChange={(e) => setCityName(e.target.value)} placeholder='Search City...' type="search" value={cityName}/>
-        <button aria-label='search' type='submit' />
+        <input name="city" onChange={(e) => setCityName(e.target.value)} placeholder="Search City..." type="search" value={cityName} />
+        <button aria-label="search" type="submit" />
       </form>
       <div className={styles.grid}>
         <div className={styles.location}>
@@ -83,12 +83,12 @@ export default function Main() {
         </div>
         <div className={styles.weather}>
           <section>
-            <h1>{dataWeatherDaily.current.temp}&#8451;</h1>
+            <h1>{dataWeather.main.temp}&#8451;</h1>
             <img
-              alt={dataWeatherDaily.current.weather[0].description}
-              src={imgUrl(dataWeatherDaily.current.weather[0].icon)}
+              alt={dataWeather.weather[0].main}
+              src={imgUrl(dataWeather.weather[0].icon)}
             />
-            <span>{dataWeatherDaily.current.weather[0].description}</span>
+            <span>{dataWeather.weather[0].description}</span>
           </section>
           <section>
             {renderDescWeather('Feels Like', `${dataWeather.main.feels_like}\u2103`)}
@@ -96,13 +96,13 @@ export default function Main() {
             {renderDescWeather('Visibility', `${dataWeather.visibility / 1000} km`)}
             {renderDescWeather('Cloud Cover', `${dataWeather.clouds.all}%`)}
             {renderDescWeather('Humidity', `${dataWeather.main.humidity}%`)}
-            {renderDescWeather('UV Index', `${dataWeatherDaily.current.uvi} of 10`)}
+            {renderDescWeather('UV Index', `${dataWeatherDaily.current?.uvi} of 10`)}
             {renderDescWeather('Pressure', `${dataWeather.main.pressure} hPa`)}
-            {renderDescWeather('Rain Amount', `${dataWeatherDaily.current.rain?.['1h']} mm`)}
+            {renderDescWeather('Rain Amount', `${dataWeatherDaily.current?.rain?.['1h']} mm`)}
           </section>
         </div>
         <div className={styles.daily}>
-          {dataWeatherDaily.daily.map((data, index) => <Fragment key={index}>{renderDays(data)}</Fragment>)}
+          {dataWeatherDaily.daily?.map((data, index) => <Fragment key={index}>{renderDays(data)}</Fragment>)}
         </div>
       </div>
     </section>

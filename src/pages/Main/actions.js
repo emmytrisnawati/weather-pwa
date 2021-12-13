@@ -23,7 +23,7 @@ export function fetchWeather(city) {
       const data = await getWeather(city);
       dispatch(fetchedAction(data, key));
     } catch (err) {
-      dispatch(fetchedAction([], key));
+      dispatch(fetchedAction({}, key));
       dispatch(loadingAction(false, key));
     }
   };
@@ -38,22 +38,26 @@ export function fetchWeatherDaily(city) {
       const data = await getWeatherDaily(city);
       dispatch(fetchedAction(data, key));
     } catch (err) {
-      dispatch(fetchedAction([], key));
-      dispatch(loadingAction(false, key));
+      dispatch(fetchedAction({}, key));
+      if ('serviceWorker' in navigator && 'SyncManager' in window) {
+        navigator.serviceWorker.ready(serviceWorkerRegistration => {
+          serviceWorkerRegistration.sync.register('forecastingSync');
+        });
+      }
     }
   };
 }
 
 export function createDate(dt, type) {
   let day = new Date(dt * 1000);
-  if(type === 'long') {
+  if (type === 'long') {
     let options = {
       weekday: 'long',
       year: 'numeric',
       month: 'long',
       day: 'numeric',
     };
-    return day.toLocaleString('id-ID', options); // Friday, January 15, 2021
+    return day.toLocaleString('id-ID', options);
   } else {
     let weekday = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'][day.getDay()];
     return weekday;
